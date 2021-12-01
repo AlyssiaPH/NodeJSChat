@@ -13,13 +13,13 @@ const GETISNULL = 'emailNull'
 const GETEXIST = 'emailExist'
 
 async function createUser(user) {
-    const data = await modelUsers({
+    const data = new modelUsers({
         email: user.email,
         name:user.email,
         password:user.password,
         admin:user.admin
     })
-    data.save()
+    await data.save()
     console.log('user : '+JSON.stringify(user)+' created !')
 }
 
@@ -27,10 +27,12 @@ async function getUser(user) {
     let data = await modelUsers.find({
         email: user.email,
         name:user.email,
-        password:user.password,
-        admin:user.admin
     })
-    console.log(data)
+    if(data.length !== 1){
+        return -1
+    }else{
+        return 1
+    }
 }
 
 function postUser(user) {

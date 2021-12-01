@@ -13,25 +13,26 @@ app.use(express.json())
 
 app.post('/inscription', async (request, response, next) => {
     console.log('post')
-    // let json = {
-    //     name: request.body.name,
-    //     email: request.body.email,
-    //     password: request.body.password,
-    //     admin: request.body.admin,
-    // }
-    // let valide = await createUser(json)
-    // response.send(valide);
+    let json = {
+        name: request.body.name,
+        email: request.body.email,
+        password: request.body.password,
+        admin: request.body.admin,
+    }
+    let valide = await createUser(json)
+    response.send(valide);
 });
 
-app.get('/inscription', (request, response) => {
+app.get('/inscription', async (request, response) => {
     console.log('Get')
-    // let json = {
-    //     name: request.body.name,
-    //     email: request.body.email,
-    //     password: request.body.password,
-    //     admin: request.body.admin,
-    // }
-    // getUser(json)
+    let json = {
+        email: request.query.email,
+    }
+    if(await getUser(json) === 1){
+        response.json({connect:'success'})
+    }else{
+        response.json({connect:'error'})
+    }
 });
 
 app.listen(3000, () => {
