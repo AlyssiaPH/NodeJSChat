@@ -1,31 +1,39 @@
 const express = require('express');
 const cors = require('cors')
-const {createUser}= require('../services/service')
+const {createUser, getUser} = require('../services/service')
+const bodyParser = require("body-parser");
+const {get} = require("mongoose");
 
 
 const app = express();
 
 app.use(cors());
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
-// app.post('/login',(request, response,) =>{
-//     let json = {test:request.config}
-//     console.log(request);      // your JSON
-//     response.send(request.config);
-// });
-
-app.post('/inscription',async (request, response,) =>{
-    let value = request.config
-    let json = {toto:value}
-    console.log(request);
-    response.json(json)
-    // response.send(request);
+app.post('/inscription', async (request, response, next) => {
+    console.log('post')
+    // let json = {
+    //     name: request.body.name,
+    //     email: request.body.email,
+    //     password: request.body.password,
+    //     admin: request.body.admin,
+    // }
+    // let valide = await createUser(json)
+    // response.send(valide);
 });
 
-// app.get('/',
-//     (request, response) => {
-//         let json = {test:'hello'}
-//         console.log(request.body);      // your JSON
-//         response.send(json);
-//     });
+app.get('/inscription', (request, response) => {
+    console.log('Get')
+    // let json = {
+    //     name: request.body.name,
+    //     email: request.body.email,
+    //     password: request.body.password,
+    //     admin: request.body.admin,
+    // }
+    // getUser(json)
+});
 
-app.listen(3000);
+app.listen(3000, () => {
+    console.log("Started on PORT 3000");
+})
