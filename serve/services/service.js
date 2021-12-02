@@ -12,6 +12,28 @@ let modelUsers = mongoose.model('user',
     }
 )
 
+
+
+let modelMessage = mongoose.model('message',
+    {
+        idroom: String,
+        iduser: String,
+        content: String,
+
+    }
+)
+let modelRoom = mongoose.model('room',
+    {
+        name: String,
+        users: Array,
+        messages: Array,
+
+    }
+)
+
+
+
+
 async function createUser(json) {
     try{
         const data = new modelUsers({
@@ -29,6 +51,47 @@ async function createUser(json) {
         return exception
     }
 }
+/**
+ * @param: /messages ( POST )
+ * @function : CreateMessages
+ * this path api server using to call methodes createMessages
+ * Receive => messages = {
+ *     user : ['test'] ( Array )
+ *     content : test@test.com ( String )
+ *     room : ['test'] ( Array )
+ * }
+ */
+
+async function postMessage(json){
+    try {
+        const data = new modelMessage({
+
+            idroom: json.idroom,
+            iduser: json.iduser,
+            content: json.content,
+
+        })
+        await data.save()
+        let returnvalue = 'message' + json.stringify(json) + 'just send  '
+        console.log(returnvalue)
+        return returnvalue
+
+    }catch (exception){
+
+        return exception
+    }
+
+
+
+
+
+}
+
+async function getMessage(message){
+    let data = awai
+
+
+}
 
 async function getUser(user) {
     let data = await modelUsers.find({
@@ -40,6 +103,9 @@ async function getUser(user) {
         return 1
     }
 }
+
+
+
 
 
 module.exports = {
