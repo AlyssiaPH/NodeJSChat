@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors')
 const {
     createUser,
-    createMessages,
+    createMessage,
     createRoom,
     getRoom,
+    getMessages,
     getUser,
 } = require('../services/service')
 const bodyParser = require("body-parser");
@@ -43,39 +44,6 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
-
-/**
- * ##################### GET ##############################
- */
-
-app.get('/', (request, reponse) => {
-    reponse.send('hello')
-})
-
-app.post('/inscription', async (request, response, next) => {
-    console.log('post')
-    let json = {
-        name: request.body.name,
-        email: request.body.email,
-        password: request.body.password,
-        admin: request.body.admin,
-    }
-    let valide = await createUser(json)
-    response.send(valide);
-});
-
-/** */
-app.get('/inscription', async (request, response) => {
-    console.log('Get')
-    let json = {
-        email: request.query.user.id,
-    }
-    if (await getUser(json) === 1) {
-        response.json({connect: 'success'})
-    } else {
-        response.json({connect: 'error'})
-    }
-});
 
 /**
  * @param: /user ( GET )
@@ -225,7 +193,6 @@ app.post('/user', async (request, response) => {
  */
 app.post('/room', async (request, response) => {
     try{
-        console.log('Post created Room')
         let json = {
             name: request.body.name,
             users: request.body.users,
@@ -234,10 +201,11 @@ app.post('/room', async (request, response) => {
         console.log(json)
         let valide = await createRoom(json)
         response.json(valide);
+        console.log('Post created Room')
     }catch (exception){
         response.json(exception);
+        console.log('Post created Room failled ')
     }
-
 })
 
 /**
@@ -254,12 +222,12 @@ app.post('/messages', async (request, response) => {
     try{
         console.log('Post created Messages')
         let json = {
-            user: request.body.user,
-            room: request.body.room,
+            iduser: request.body.iduser,
+            idroom: request.body.idroom,
             content:request.body.content
         }
         console.log(json)
-        let valide = await createMessages(json)
+        let valide = await createMessage(json)
         response.json(valide);
     }catch (exception){
         response.json(exception);
@@ -292,7 +260,6 @@ app.delete('/deleteMessage', async (request, response)=>{
         response.json(exception)
     }
 })
-
 
 app.delete('/deleteUser', async (request, response)=>{
     try{

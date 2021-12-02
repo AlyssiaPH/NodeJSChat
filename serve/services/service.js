@@ -12,8 +12,6 @@ let modelUsers = mongoose.model('user',
     }
 )
 
-
-
 let modelMessage = mongoose.model('message',
     {
         idroom: String,
@@ -27,12 +25,8 @@ let modelRoom = mongoose.model('room',
         name: String,
         users: Array,
         messages: Array,
-
     }
 )
-
-
-
 
 async function createUser(json) {
     try{
@@ -61,38 +55,46 @@ async function createUser(json) {
  *     room : ['test'] ( Array )
  * }
  */
-
-async function postMessage(json){
+async function createMessage(json){
     try {
         const data = new modelMessage({
-
             idroom: json.idroom,
             iduser: json.iduser,
             content: json.content,
-
         })
         await data.save()
         let returnvalue = 'message' + json.stringify(json) + 'just send  '
         console.log(returnvalue)
         return returnvalue
-
     }catch (exception){
-
         return exception
     }
-
-
-
-
-
 }
-
-async function getMessage(message){
-    let data = awai
-
-
+/**
+ * @param: /room ( POST )
+ * @function : CreateMessages
+ * this path api server using to call methodes createRoom
+ * Receive => room = {
+ *     name : ['test'] ( String )
+ *     users : ['test'] ( Array )
+ *     messages : ['test'] ( Array )
+ * }
+ */
+async function createRoom(json){
+    try {
+        const data = new modelRoom({
+            name: json.name,
+            users: json.users,
+            messages: json.messages,
+        })
+        await data.save()
+        let returnvalue = 'message' + json.stringify(json) + 'just send  '
+        console.log(returnvalue)
+        return returnvalue
+    }catch (exception){
+        return exception
+    }
 }
-
 async function getUser(user) {
     let data = await modelUsers.find({
         email: user.email,
@@ -103,12 +105,37 @@ async function getUser(user) {
         return 1
     }
 }
+async function getRoom(name) {
+    let data = await modelRoom.find({
+        name: name,
+    })
+    if (data.length !== 1) {
+        return -1
+    } else {
+        return 1
+    }
+}
 
-
-
-
+async function getMessages(json) {
+    let data = await modelMessage.find({
+        name: json.name,
+        users: json.users,
+        messages: json.messages,
+    })
+    if (data.length !== 1) {
+        return -1
+    } else {
+        return 1
+    }
+}
 
 module.exports = {
     createUser,
-    getUser
+    createMessage,
+    createRoom,
+    getUser,
+    getRoom,
+    getMessages,
+
+
 }
