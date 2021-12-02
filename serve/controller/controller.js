@@ -1,6 +1,11 @@
 const express = require('express');
 const cors = require('cors')
-const {createUser, getUser} = require('../services/service')
+const {
+    createUser,
+    getUser,
+    createMessages,
+    createRoom,
+} = require('../services/service')
 const bodyParser = require("body-parser");
 const {get} = require("mongoose");
 const {response, request} = require("express");
@@ -37,6 +42,10 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+
+/**
+ * ##################### GET ##############################
+ */
 
 app.get('/', (request, reponse) => {
     reponse.send('hello')
@@ -103,8 +112,12 @@ app.get('/user', async (request, response) => {
 });
 
 /**
+ * ##################### POST ##############################
+ */
+
+/**
  * @param: /user ( POST )
- * @function : Create USERS
+ * @function : CreateUser
  * this path api server using to call methodes createUsers
  * Receive => user = {
  *     email : test@test.com ( String )
@@ -125,6 +138,50 @@ app.post('/user', async (request, response) => {
     }
     console.log(json)
     let valide = await createUser(json)
+    response.send(valide);
+})
+
+/**
+ * @param: /room ( POST )
+ * @function : CreateRoom
+ * this path api server using to call methodes createRoom
+ * Receive => room = {
+ *     name : test@test.com ( String )
+ *     users : ['test'] ( Array )
+ *     messages : ['test'] ( Array )
+ * }
+ */
+app.post('/user', async (request, response) => {
+    console.log('Post created Room')
+    let json = {
+        name: request.body.name,
+        users: request.body.users,
+        messages:request.body.messages
+    }
+    console.log(json)
+    let valide = await createRoom(json)
+    response.send(valide);
+})
+
+/**
+ * @param: /messages ( POST )
+ * @function : CreateMessages
+ * this path api server using to call methodes createMessages
+ * Receive => messages = {
+ *     user : ['test'] ( Array )
+ *     content : test@test.com ( String )
+ *     room : ['test'] ( Array )
+ * }
+ */
+app.post('/messages', async (request, response) => {
+    console.log('Post created Messages')
+    let json = {
+        user: request.body.user,
+        room: request.body.room,
+        content:request.body.content
+    }
+    console.log(json)
+    let valide = await createMessages(json)
     response.send(valide);
 })
 
