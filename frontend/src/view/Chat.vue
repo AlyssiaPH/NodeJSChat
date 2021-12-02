@@ -54,6 +54,7 @@ export default {
         newPseudo:"",
         newMessage:"",
         current_room: "General",
+        new_message: "",
         room_list: ["General", "Test", "Games"],
         messages_list: [
           {
@@ -98,11 +99,21 @@ export default {
       let newPseudo = this.data.newPseudo
       console.log("Changement pseudo de : " +userMAil + " vers : " + newPseudo)
     },
-    sendMessage(){
-      let userMAil = this.data.user.email
-      let newMessage = this.data.newMessage
-      console.log("Message de : " +userMAil + " : " + newMessage)
+    async sendMessage(){
+      let messageData = {
+        content:this.data.new_message,
+        user:this.data.user.email,
+        room:this.data.current_room
+      }
+      await this.$http.post('http://localhost:3000/messages', messageData).then((res) => {
+        this.data.new_message=""
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
+  },
+  mounted() {
   }
 }
 
