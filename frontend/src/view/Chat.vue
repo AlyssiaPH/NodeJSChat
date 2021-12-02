@@ -55,7 +55,7 @@ export default {
         newMessage:"",
         current_room: "General",
         new_message: "",
-        room_list: ["General", "Test", "Games"],
+        room_list: ["Général", "Test", "Games"],
         messages_list: [
           {
             id:"4",
@@ -88,11 +88,18 @@ export default {
     'custom_header': Header
   },
   methods:{
+    getAllRoomMessages(nameRoom){
+      this.data.messages_list = ""
+      console.log(nameRoom)
+    },
     deleteMessage(id){
+
       console.log("Suprression message : " + id)
     },
-    changeRoom(id){
-      console.log("Changement de room : " + id)
+    changeRoom(name){
+      this.data.current_room = name
+      this.getAllRoomMessages(name)
+      console.log("Changement de room : " + name)
     },
     changeUserName(){
       let userMAil = this.data.user.email
