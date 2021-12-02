@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors')
 const {
     createUser,
-    getUser,
     createMessages,
     createRoom,
+    getRoom,
+    getUser,
 } = require('../services/service')
 const bodyParser = require("body-parser");
 const {get} = require("mongoose");
@@ -112,6 +113,72 @@ app.get('/user', async (request, response) => {
 });
 
 /**
+ * @param: /room ( GET )
+ * this path api server using to call methodes
+ * Receive => room = {
+ *     name : toto ( String )
+ *     users : ['test'] ( Array )
+ *     messages : ['test'] ( Array )
+ * }
+ */
+app.get('/room', async (request, response) => {
+    console.log('Get message : ')
+    console.log(request)
+    try {
+        let userGetting = await getRoom(request)
+        if (userGetting.length < 1) {
+            response.json({
+                result : null,
+                error : 'This user doesn\'t exist'
+            })
+        }else{
+            response.json({
+                result : userGetting[0],
+                error : -1
+            })
+        }
+    }catch (exception){
+        response.json({
+            result : null,
+            error : 'This user doesn\'t exist'
+        })
+    }
+});
+
+/**
+ * @param: /messages ( GET )
+ * this path api server using to call methodes
+ * Receive => messages = {
+ *     content : toto ( String )
+ *     user : toto ( String )
+ *     room : toto ( String )
+ * }
+ */
+app.get('/messages', async (request, response) => {
+    console.log('Get message : ')
+    console.log(request)
+    try {
+        let userGetting = await getMessages(request)
+        if (userGetting.length < 1) {
+            response.json({
+                result : null,
+                error : 'This user doesn\'t exist'
+            })
+        }else{
+            response.json({
+                result : userGetting[0],
+                error : -1
+            })
+        }
+    }catch (exception){
+        response.json({
+            result : null,
+            error : 'This user doesn\'t exist'
+        })
+    }
+});
+
+/**
  * ##################### POST ##############################
  */
 
@@ -151,7 +218,7 @@ app.post('/user', async (request, response) => {
  *     messages : ['test'] ( Array )
  * }
  */
-app.post('/user', async (request, response) => {
+app.post('/room', async (request, response) => {
     console.log('Post created Room')
     let json = {
         name: request.body.name,
