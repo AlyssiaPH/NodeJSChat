@@ -108,3 +108,7 @@ dist
 .DS_Store
 
 serve/package-lock.json
+
+package-lock.json
+
+*.lock

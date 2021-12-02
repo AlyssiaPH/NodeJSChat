@@ -25,10 +25,10 @@
             </div>
 
             <div class="mb-3">
-              <label for="exampleDropdownFormPassword2" class="form-label">
+              <label for="yourPassword" class="form-label">
                 Your Password
               </label>
-              <input type="password" class="form-control" id="exampleDropdownFormPassword2" v-model="data.password"
+              <input type="password"  class="form-control" id="yourPassword" v-model="data.password"
                      placeholder="Password">
             </div>
 
@@ -36,13 +36,13 @@
               <label for="verifyPassword" class="form-label">
                Verify Password
               </label>
-              <input type="password" class="form-control" id="verifyPassword"
+              <input type="password"  class="form-control" id="verifyPassword"
                      placeholder="your Password">
             </div>
 
-            <button type="submit" class="btn btn-primary" @click="sendUserData">create</button>
+            <button type="submit" class="btn btn-primary" @click="sendUserData">sign up</button>
 
-            <button type="submit" class="btn btn-primary" @click="getIfUserMailExist">get</button>
+
           </form>
         </div>
       </div>

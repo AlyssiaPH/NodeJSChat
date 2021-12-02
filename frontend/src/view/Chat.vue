@@ -32,7 +32,7 @@
 
     </ul>
     <div id="form">
-      <input id="input" autocomplete="off"  v-model="data.newMessage"/>
+      <input id="input" autocomplete="off"  v-model="data.new_message"/>
       <button @click="sendMessage">Envoyer</button>
     </div>
   </div>
@@ -54,7 +54,8 @@ export default {
         newPseudo:"",
         newMessage:"",
         current_room: "General",
-        room_list: ["General", "Test", "Games"],
+        new_message: "",
+        room_list: ["Général", "Test", "Games"],
         messages_list: [
           {
             id:"4",
@@ -87,22 +88,41 @@ export default {
     'custom_header': Header
   },
   methods:{
+    getAllRoomMessages(nameRoom){
+      this.data.messages_list = ""
+      console.log(nameRoom)
+    },
     deleteMessage(id){
+
       console.log("Suprression message : " + id)
     },
-    changeRoom(id){
-      console.log("Changement de room : " + id)
+    changeRoom(name){
+      this.data.current_room = name
+      this.getAllRoomMessages(name)
+      console.log("Changement de room : " + name)
     },
     changeUserName(){
       let userMAil = this.data.user.email
       let newPseudo = this.data.newPseudo
       console.log("Changement pseudo de : " +userMAil + " vers : " + newPseudo)
     },
-    sendMessage(){
-      let userMAil = this.data.user.email
-      let newMessage = this.data.newMessage
-      console.log("Message de : " +userMAil + " : " + newMessage)
+    async sendMessage(){
+      console.log(this.data.new_message)
+      let messageData = {
+        content: this.data.new_message,
+        iduser: this.data.user.email,
+        idroom: this.data.current_room
+      }
+      console.log(messageData)
+      await this.$http.post('http://localhost:3000/message', messageData).then((res) => {
+        //this.data.new_message= ""
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
+  },
+  mounted() {
   }
 }
 
