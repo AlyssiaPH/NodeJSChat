@@ -14,20 +14,15 @@
               <input  class="form-control" id="exampleDropdownFormName" v-model="data.name"
                       placeholder="Name">
             </div>
+
             <div class="mb-3">
               <label for="exampleDropdownFormEmailError" class="form-label" >
                 Your Email address
               </label>
-              <input type="email" v-if="error" class="form-control is-invalid" id="exampleDropdownFormEmailError" v-model="data.email"
+              <input type="email"  class="form-control" id="exampleDropdownFormEmailError" v-model="data.email"
                      placeholder="email@example.com">
             </div>
-            <div class="mb-3">
-              <label for="exampleDropdownFormEmailNoError" class="form-label" >
-                Your Email address
-              </label>
-              <input type="email" v-if="!error" class="form-control" id="exampleDropdownFormEmailNoError" v-model="data.email"
-                     placeholder="email@example.com">
-            </div>
+
             <div class="mb-3">
               <label for="exampleDropdownFormPassword2" class="form-label">
                 Your Password
@@ -35,6 +30,15 @@
               <input type="password" class="form-control" id="exampleDropdownFormPassword2" v-model="data.password"
                      placeholder="Password">
             </div>
+
+            <div class="mb-3">
+              <label for="verifyPassword" class="form-label">
+               Verify Password
+              </label>
+              <input type="password" class="form-control" id="verifyPassword"
+                     placeholder="your Password">
+            </div>
+
             <button type="submit" class="btn btn-primary" @click="sendUserData">create</button>
 
             <button type="submit" class="btn btn-primary" @click="getIfUserMailExist">get</button>
