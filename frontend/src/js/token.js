@@ -9,4 +9,4 @@ function generateAccessToken(data){
 
 module.exports ={
     generateAccessToken
-} 
+}
