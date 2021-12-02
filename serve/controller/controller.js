@@ -195,17 +195,22 @@ app.get('/messages', async (request, response) => {
  * }
  */
 app.post('/user', async (request, response) => {
-    console.log('Post created User')
-    let json = {
-        name: request.body.name,
-        email: request.body.email,
-        password: request.body.password,
-        admin: request.body.admin,
-        rooms : request.body.rooms
+    try{
+        console.log('Post created User')
+        let json = {
+            name: request.body.name,
+            email: request.body.email,
+            password: request.body.password,
+            admin: request.body.admin,
+            rooms : request.body.rooms
+        }
+        console.log(json)
+        let valide = await createUser(json)
+        response.json(valide);
+    }catch (exception){
+        response.json(exception);
     }
-    console.log(json)
-    let valide = await createUser(json)
-    response.send(valide);
+
 })
 
 /**
@@ -219,15 +224,20 @@ app.post('/user', async (request, response) => {
  * }
  */
 app.post('/room', async (request, response) => {
-    console.log('Post created Room')
-    let json = {
-        name: request.body.name,
-        users: request.body.users,
-        messages:request.body.messages
+    try{
+        console.log('Post created Room')
+        let json = {
+            name: request.body.name,
+            users: request.body.users,
+            messages:request.body.messages
+        }
+        console.log(json)
+        let valide = await createRoom(json)
+        response.json(valide);
+    }catch (exception){
+        response.json(exception);
     }
-    console.log(json)
-    let valide = await createRoom(json)
-    response.send(valide);
+
 })
 
 /**
@@ -241,15 +251,64 @@ app.post('/room', async (request, response) => {
  * }
  */
 app.post('/messages', async (request, response) => {
-    console.log('Post created Messages')
-    let json = {
-        user: request.body.user,
-        room: request.body.room,
-        content:request.body.content
+    try{
+        console.log('Post created Messages')
+        let json = {
+            user: request.body.user,
+            room: request.body.room,
+            content:request.body.content
+        }
+        console.log(json)
+        let valide = await createMessages(json)
+        response.json(valide);
+    }catch (exception){
+        response.json(exception);
     }
-    console.log(json)
-    let valide = await createMessages(json)
-    response.send(valide);
+
+})
+
+/**
+ * ##################### DELETE ##############################
+ */
+
+/**
+ * @param: /messages ( DELETE )
+ * @function : deleteMessages
+ * this path api server using to call methodes deleteMessages
+ */
+app.delete('/deleteMessage', async (request, response)=>{
+    try{
+        console.log('Delete message : ')
+        console.log(request)
+        let json = {
+            user: request.body.user,
+            room: request.body.room,
+            content:request.body.content
+        }
+        console.log(json)
+        let valide = await deleteMessage(json)
+        response.json(valide)
+    }catch (exception){
+        response.json(exception)
+    }
+})
+
+
+app.delete('/deleteUser', async (request, response)=>{
+    try{
+        console.log('Delete User : ')
+        console.log(request)
+        let json = {
+            user: request.body.user,
+            room: request.body.room,
+            content:request.body.content
+        }
+        console.log(json)
+        let valide = await deleteMessage(json)
+        response.json(valide)
+    }catch (exception){
+        response.json(exception)
+    }
 })
 
 app.listen(3000, () => {
