@@ -1,0 +1,33 @@
+body.base {
+    height: 100vh;
+    display: flex;
+    font-family: 'LibreBaskerville', sans-serif;
+}
+
+body.home {
+    font-family: 'LibreBaskerville', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body.notFound{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Bohemian',serif;
+    background-color: #272727
+}
+
+.bottonUrlPosition{
+    padding-top: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bottonMenuPosition{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
