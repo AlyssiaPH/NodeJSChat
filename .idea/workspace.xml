@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aef08c8c-1c3b-406d-91d5-a3cdee95889f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/TextLight.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/css/global.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/js/format.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/router.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/view/Home.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/view/Inscription.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/view/NotFound.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend" beforeDir="false" afterPath="$PROJECT_DIR$/frontend" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/HelloWorld.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serve/controller/controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/serve/controller/controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serve/services/service.js" beforeDir="false" afterPath="$PROJECT_DIR$/serve/services/service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
