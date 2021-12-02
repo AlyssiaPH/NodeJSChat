@@ -128,6 +128,85 @@ async function getMessages(json) {
         return 1
     }
 }
+async function deleteMessage(json) {
+
+    try{
+    let data = await modelRoom.findByIdAndDelete({
+        name: json.name,
+        users: json.users,
+        messages: json.messages,
+       })
+
+    await data.save()
+    let returnvalue = 'message' + json.stringify(json) + 'has deleted '
+    console.log(returnvalue)
+    return returnvalue
+}catch (exception){
+    return exception
+}
+
+
+}
+
+async function deleteUser(json) {
+
+    try{
+        let data = await modelRoom.findByIdAndDelete({
+            name: json.name,
+            email: json.email,
+            password: json.password,
+            admin: json.admin,
+            rooms : json.rooms
+        })
+
+        await data.save()
+        let returnvalue = 'user' + json.stringify(json) + 'has deleted '
+        console.log(returnvalue)
+        return returnvalue
+    }catch (exception){
+        return exception
+    }
+
+
+}
+async function deleteRoom(json) {
+
+    try{
+        let data = await modelRoom.findByIdAndDelete({
+            name: String,
+            users: Array,
+            messages: Array,
+        })
+
+        await data.save()
+        let returnvalue = 'room' + json.stringify(json) + 'has deleted '
+        console.log(returnvalue)
+        return returnvalue
+    }catch (exception){
+        return exception
+    }
+
+
+}
+
+async function updateUsers(json) {
+    try {
+
+        let data = await modelUsers.findByIdAndUpdate({
+            name: json.name,
+            email: json.email,
+            password: json.password,
+            admin: json.admin,
+            rooms : json.rooms
+    })
+     await data.save()
+    let returnvalue = 'users' + json.stringify(json) +'has been update'
+    console.log(returnvalue)
+}catch (exception){
+    return(exception)
+
+}
+
 
 module.exports = {
     createUser,
@@ -136,6 +215,9 @@ module.exports = {
     getUser,
     getRoom,
     getMessages,
+    deleteRoom,
+    deleteUser,
+    deleteMessage,
+updateUsers
 
-
-}
+}}

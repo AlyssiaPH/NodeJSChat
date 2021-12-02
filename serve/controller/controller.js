@@ -7,6 +7,10 @@ const {
     getRoom,
     getMessages,
     getUser,
+    deleteRoom,
+    deleteMessage,
+    deleteUser,
+    updateUsers
 } = require('../services/service')
 const bodyParser = require("body-parser");
 const {get} = require("mongoose");
@@ -266,9 +270,11 @@ app.delete('/deleteUser', async (request, response)=>{
         console.log('Delete User : ')
         console.log(request)
         let json = {
-            user: request.body.user,
-            room: request.body.room,
-            content:request.body.content
+            name: request.body.name,
+            email: request.body.email,
+            password: request.body.password,
+            admin: request.body.admin,
+            rooms : request.body.rooms
         }
         console.log(json)
         let valide = await deleteMessage(json)
@@ -278,8 +284,85 @@ app.delete('/deleteUser', async (request, response)=>{
     }
 })
 
+
+
+app.delete('/deleteRoom',async (req ,res)=>{
+    try {
+        console.log('delete room :')
+        console.log(request)
+        let json = {
+            name: request.body.name,
+            users: request.body.users,
+            messages: request.body.messages
+        }
+        console.log(json)
+        let valide = await deleteRoom(json)
+        response.json(valide)
+    }catch (exception){
+        response.json(exception)
+    }
+})
+
+
 app.listen(3000, () => {
     console.log("Started on PORT 3000");
+})
+
+app.post('/updateUser', async (req, res) =>{
+    try {
+        console.log('update user:')
+        console.log(request)
+        let json = {
+
+            name: request.body.name,
+            email: request.body.email,
+            password: request.body.password,
+            admin: request.body.admin,
+            rooms: request.body.rooms,
+        }
+        console.log(json)
+        let valide = await updateUser(json)
+        response.json(valide)
+    } catch (exception) {
+        response.json(exception)
+    }
+})
+
+app.post('/updateMessage', async(req, res)=>{
+    try {
+        console.log('update message:')
+        console.log(request)
+        let json = {
+
+            user: request.body.user,
+            room: request.body.room,
+            content:request.body.content,
+        }
+        console.log(json)
+        let valide = await updateMessage(json)
+        response.json(valide)
+    } catch (exception) {
+
+        response.json(exception)
+    }
+})
+
+app.post('/updateRoom', async(req, res)=>{
+    try {
+        console.log('update room:')
+        console.log(request)
+        let json = {
+            name: request.body.name,
+            users: request.body.users,
+            messages: request.body.messages
+        }
+        console.log(json)
+        let valide = await updateRoom(json)
+        response.json(valide)
+    } catch (exception) {
+
+        response.json(exception)
+    }
 })
 
 /**
