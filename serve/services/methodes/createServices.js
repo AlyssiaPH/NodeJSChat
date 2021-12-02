@@ -34,7 +34,7 @@ async function createMessageService(json,modelMessage,req,res){
         const data = new modelMessage({
             idroom: json.idroom,
             iduser: json.iduser,
-            content: encrypt(json.content),
+            content: json.content,
         })
         await data.save()
         let returnvalue = 'message' + JSON.stringify(json) + 'just send  '

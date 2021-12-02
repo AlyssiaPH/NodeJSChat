@@ -5,9 +5,9 @@
     <div id="menu">
 
       <div id="chatList">
-        <div v-for="room in data.room_list" :key="room" class="divRoomTab">
-          <p v-if="room=== data.current_room" class="currentRoomTab roomTab" @click="changeRoom(room)">{{room}}</p>
-          <p class="roomTab" v-else @click="changeRoom(room)">{{room}}</p>
+        <div v-for="room in data.room_list" :key="room.name" class="divRoomTab">
+          <p v-if="room._id=== data.current_room" class="currentRoomTab roomTab" @click="changeRoom(room._id)">{{room.name}}</p>
+          <p class="roomTab" v-else @click="changeRoom(room._id)">{{room.name}}</p>
         </div>
       </div>
 
@@ -19,7 +19,7 @@
 
     </div>
 
-    <ul id="messages" v-for="item in data.messages_list" :key="item.content">
+    <ul id="messages" v-for="item in data.messages_list" :key="item._id">
 
       <li v-if="data.user.email === item.iduser " class="messageYou">
         <p>{{ item.content }}</p>
@@ -53,32 +53,10 @@ export default {
         },
         newPseudo:"",
         newMessage:"",
-        current_room: "General",
+        current_room: "61a9259a4242a4486eab216f",
         new_message: "",
-        room_list: ["Général", "Test", "Games"],
-        messages_list: [
-          {
-            id:"4",
-            iduser: 'idtoto',
-            nameUser: 'Toto',
-            content: 'hello les gens '
-          }, {
-            id:"4",
-            iduser: 'idbernard',
-            nameUser: 'Bernard',
-            content: 'Coucoous '
-          }, {
-            id:"4",
-            iduser: 'idpatrick',
-            nameUser: 'Patrick',
-            content: 'hellows '
-          }, {
-            id:"4",
-            iduser: 'idtoto',
-            nameUser: 'Toto',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a nulla a massa interdum imperdiet sed nec nibh. Proin porttitor euismod nulla ut interdum. Cras elementum placerat aliquam.'
-          },
-        ],
+        room_list: this.getAllRooms(),
+        messages_list: [],
         message_content: null
       },
       info: null
@@ -88,18 +66,26 @@ export default {
     'custom_header': Header
   },
   methods:{
-    getAllRoomMessages(nameRoom){
+    async getAllRoomMessages(idRoom){
       this.data.messages_list = ""
-      console.log(nameRoom)
+      await this.$http.get('http://localhost:3000/allroommessages',
+          { params: {
+            idRoom: idRoom
+            }}).then((res) => {
+        this.data.messages_list = res.data.result
+        console.log("resultat", res.data.result)
+        return res.data.result
+      }).catch(err => {
+        console.log(err)
+      })
     },
     deleteMessage(id){
 
       console.log("Suprression message : " + id)
     },
-    changeRoom(name){
-      this.data.current_room = name
-      this.getAllRoomMessages(name)
-      console.log("Changement de room : " + name)
+    changeRoom(id){
+      this.data.current_room = id
+      this.getAllRoomMessages(id)
     },
     changeUserName(){
       let userMAil = this.data.user.email
@@ -120,9 +106,19 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-    }
+    },
+    async getAllRooms() {
+      await this.$http.get('http://localhost:3000/allrooms',
+          { }).then((res) => {
+        this.data.room_list = res.data.result
+        return res.data.result
+      }).catch(err => {
+        console.log(err)
+      })
+    },
   },
   mounted() {
+    this.changeRoom(this.data.current_room)
   }
 }
 
@@ -150,6 +146,10 @@ body {
 
 .roomTab{
   /*background-color: aliceblue;*/
+  display: flex;
+  margin-right: 1%;
+  margin-left: 1%;
+  flex-wrap: nowrap;
 }
 
 .currentRoomTab{

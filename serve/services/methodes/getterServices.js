@@ -22,6 +22,25 @@ async function getterRoomService(name,modelRoom) {
     }
 }
 
+async function getterAllRoomService(name,modelRoom) {
+    let data = await modelRoom.find({})
+    if (data.length < 1) {
+        return -1
+    } else {
+        return data
+    }
+}
+async function getterAllRoomMessagesService(json,modelMessage) {
+    let data = await modelMessage.find({
+        idroom: json.query.idRoom,
+    })
+    if (data.length < 1) {
+        return -1
+    } else {
+        return data
+    }
+}
+
 async function getterMessageService(json,modelMessage) {
     let data = await modelMessage.find({
         name: json.name,
@@ -37,6 +56,8 @@ async function getterMessageService(json,modelMessage) {
 
 module.exports = {
     getterRoomService,
+    getterAllRoomService,
+    getterAllRoomMessagesService,
     getterMessageService,
     getterUserService
 }
