@@ -1,141 +1,56 @@
 const mongoose = require('mongoose')
-
+const {createUserService, createMessageService, createRoomService} = require('./methodes/createServices')
+const {getterMessageService,getterUserService,getterRoomService} = require('./methodes/getterServices')
+const{getUser}= require('./methodes/getterServices')
 mongoose.connect('mongodb://groupe6:ekwHcv6ZmRVRNBrSX5w@94.130.108.19/groupe6');
 
-let modelUsers = mongoose.model('user',
-    {
-        name: String,
-        email: String,
-        password: String,
-        admin: Boolean,
-        rooms: Array
-    }
-)
+let modelUsers = mongoose.model('user', {name: String, email: String, password: String, admin: Boolean, rooms: Array})
+let modelMessage = mongoose.model('message', {idroom: String, iduser: String, content: String,})
+let modelRoom = mongoose.model('room', {name: String, users: Array, messages: Array,})
 
-let modelMessage = mongoose.model('message',
-    {
-        idroom: String,
-        iduser: String,
-        content: String,
-
-    }
-)
-let modelRoom = mongoose.model('room',
-    {
-        name: String,
-        users: Array,
-        messages: Array,
-    }
-)
-
-async function createUser(json) {
-    try{
-        const data = new modelUsers({
-            name: json.name,
-            email: json.email,
-            password: json.password,
-            admin: json.admin,
-            rooms : json.rooms
-        })
-        await data.save()
-        let returnValue = 'user : ' + JSON.stringify(json) + ' created !'
-        console.log(returnValue)
-        return returnValue
-    }catch (exception){
-        return exception
-    }
-}
-/**
- * @param: /messages ( POST )
- * @function : CreateMessages
- * this path api server using to call methodes createMessages
- * Receive => messages = {
- *     user : ['test'] ( Array )
- *     content : test@test.com ( String )
- *     room : ['test'] ( Array )
- * }
- */
-async function createMessage(json){
-    try {
-        const data = new modelMessage({
-            idroom: json.idroom,
-            iduser: json.iduser,
-            content: json.content,
-        })
-        await data.save()
-        let returnvalue = 'message' + json.stringify(json) + 'just send  '
-        console.log(returnvalue)
-        return returnvalue
-    }catch (exception){
-        return exception
-    }
-}
-/**
- * @param: /room ( POST )
- * @function : CreateMessages
- * this path api server using to call methodes createRoom
- * Receive => room = {
- *     name : ['test'] ( String )
- *     users : ['test'] ( Array )
- *     messages : ['test'] ( Array )
- * }
- */
-async function createRoom(json){
-    try {
-        const data = new modelRoom({
-            name: json.name,
-            users: json.users,
-            messages: json.messages,
-        })
-        await data.save()
-        let returnvalue = 'message' + json.stringify(json) + 'just send  '
-        console.log(returnvalue)
-        return returnvalue
-    }catch (exception){
-        return exception
-    }
-}
-async function getUser(user) {
-    let data = await modelUsers.find({
-        email: user.email,
-    })
-    if (data.length !== 1) {
-        return -1
-    } else {
-        return 1
-    }
-}
-async function getRoom(name) {
-    let data = await modelRoom.find({
-        name: name,
-    })
-    if (data.length !== 1) {
-        return -1
-    } else {
-        return 1
+async function servicesCreation(path,data,req,res){
+    switch (path){
+        case '/user':
+            return createUserService(data,modelUsers,req,res)
+        case '/message':
+            return createMessageService(data,modelMessage,req,res)
+        case '/room':
+            return createRoomService(data,modelRoom,req,res)
+        default:
+            break
     }
 }
 
-async function getMessages(json) {
-    let data = await modelMessage.find({
-        name: json.name,
-        users: json.users,
-        messages: json.messages,
-    })
-    if (data.length !== 1) {
-        return -1
-    } else {
-        return 1
+async function servicesGetter(path,data,req,res){
+    switch (path){
+        case '/user':
+            return getterUserService(data,modelUsers,req,res)
+        case '/message':
+            return getterMessageService(data,modelUsers,req,res)
+        case '/room':
+            return getterRoomService(data,modelRoom,req,res)
+        default:
+            break
     }
 }
+
+async function servicesDelete(path,data){
+    switch (path){
+        case '/user':
+            return deleteUserService(data,modelUsers)
+        case '/message':
+            return deleteMessageService(data,modelUsers)
+        case '/room':
+            return deleteRoomService(data,modelRoom)
+        default:
+            break
+    }
+}
+
+
+
 
 module.exports = {
-    createUser,
-    createMessage,
-    createRoom,
-    getUser,
-    getRoom,
-    getMessages,
-
-
+    servicesGetter,
+    servicesCreation
 }
