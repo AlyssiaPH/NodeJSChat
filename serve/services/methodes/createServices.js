@@ -1,6 +1,6 @@
 const {encrypt} = require("./../../javascript/hash");
 
-async function createUserService(json, modelUsers) {
+async function createUserService(json, modelUsers,req,res) {
     try{
         const data = new modelUsers({
             name: json.name,
@@ -12,9 +12,10 @@ async function createUserService(json, modelUsers) {
         await data.save()
         let returnValue = 'user : ' + JSON.stringify(json) + ' created !'
         console.log(returnValue)
-        return returnValue
+        res.json(JSON.stringify(json))
     }catch (exception){
-        return exception
+        console.log('error : '+exception)
+        res.json(exception)
     }
 }
 
@@ -28,7 +29,7 @@ async function createUserService(json, modelUsers) {
  *     room : ['test'] ( Array )
  * }
  */
-async function createMessageService(json,modelMessage){
+async function createMessageService(json,modelMessage,req,res){
     try {
         const data = new modelMessage({
             idroom: json.idroom,
@@ -36,11 +37,12 @@ async function createMessageService(json,modelMessage){
             content: encrypt(json.content),
         })
         await data.save()
-        let returnvalue = 'message' + json.stringify(json) + 'just send  '
+        let returnvalue = 'message' + JSON.stringify(json) + 'just send  '
         console.log(returnvalue)
-        return returnvalue
+        res.json(JSON.stringify(json))
     }catch (exception){
-        return exception
+        console.log('error : '+exception)
+        res.json(exception)
     }
 }
 
@@ -54,7 +56,7 @@ async function createMessageService(json,modelMessage){
  *     messages : ['test'] ( Array )
  * }
  */
-async function  createRoomService(json,modelRoom){
+async function  createRoomService(json,modelRoom,req,res){
     try {
         const data = new modelRoom({
             name: json.name,
@@ -62,11 +64,12 @@ async function  createRoomService(json,modelRoom){
             messages: json.messages,
         })
         await data.save()
-        let returnvalue = 'message' + json.stringify(json) + 'just send  '
+        let returnvalue = 'message' + JSON.stringify(json) + 'just send  '
         console.log(returnvalue)
-        return returnvalue
+        res.json(JSON.stringify(json))
     }catch (exception){
-        return exception
+        console.log('error : '+exception)
+        res.json(exception)
     }
 }
 

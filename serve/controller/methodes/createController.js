@@ -12,11 +12,12 @@ async function createUserController(request,response){
             rooms : request.body.rooms
         }
         console.log(json)
-        let valide = await servicesCreation('/user',json)
+        let valide = await servicesCreation('/user',json,request,response)
         response.json(valide);
         console.log('User Created !')
     }catch (exception){
-        response.json(exception);
+        console.log('error : '+exception)
+        response.json({exception});
     }
 }
 
@@ -29,11 +30,12 @@ async function createMessageController(request,response){
             content:request.body.content
         }
         console.log(json)
-        let valide = await servicesCreation('/message',json)
+        let valide = await servicesCreation('/message',json,request,response)
         response.json(valide);
         console.log('Message Created !')
     }catch (exception){
-        response.json(exception);
+        console.log('error : '+exception)
+        response.json({exception});
     }
 }
 
@@ -43,14 +45,15 @@ async function createRoomController(request,response){
         let json = {
             name: request.body.name,
             users: request.body.users,
-            messages:request.body.messages
+            messages: request.body.messages
         }
         console.log(json)
-        let valide = await servicesCreation('/room',json)
+        let valide = await servicesCreation('/room',json,request,response)
         response.json(valide);
         console.log('Room Created !')
     }catch (exception){
-        response.json(exception);
+        console.log('error : '+exception)
+        response.json({exception});
     }
 }
 

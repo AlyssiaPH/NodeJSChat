@@ -45,6 +45,11 @@ app.get(
     async (req, res) => {
         await getRoomController(req, res)
     })
+/**
+ * ALL DELETE
+ */
+
+app.delete('/user')
 
 app.listen(3000, () => {console.log("Started on PORT 3000");})
 
