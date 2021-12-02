@@ -100,13 +100,15 @@ export default {
       console.log("Changement pseudo de : " +userMAil + " vers : " + newPseudo)
     },
     async sendMessage(){
+      console.log(this.data.new_message)
       let messageData = {
-        content:this.data.new_message,
-        user:this.data.user.email,
-        room:this.data.current_room
+        content: this.data.new_message,
+        iduser: this.data.user.email,
+        idroom: this.data.current_room
       }
+      console.log(messageData)
       await this.$http.post('http://localhost:3000/messages', messageData).then((res) => {
-        this.data.new_message=""
+        //this.data.new_message= ""
         console.log(res)
       }).catch(err => {
         console.log(err)
