@@ -106,3 +106,7 @@ dist
 .idea/
 
 .DS_Store
+
+serve/package-lock.json
+
+*.json

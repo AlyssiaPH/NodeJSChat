@@ -23,11 +23,11 @@
 
       <li v-if="data.user.email === item.iduser " class="messageYou">
         <p>{{ item.content }}</p>
-        <p v-if="data.user.admin === true">x</p>
+        <p v-if="data.user.admin === true" @click="deleteMessage(item.id)">x</p>
       </li>
       <li v-else class="messageOther">
         <p>{{ item.nameUser }} : {{ item.content }}</p>
-        <p v-if="data.user.admin === true">x</p>
+        <p v-if="data.user.admin === true" @click="deleteMessage(item.id)">x</p>
       </li>
 
     </ul>
@@ -55,21 +55,25 @@ export default {
         room_list: ["General", "Test", "Games"],
         messages_list: [
           {
+            id:"4",
             iduser: 'idtoto',
             nameUser: 'Toto',
             content: 'hello les gens '
           }, {
+            id:"4",
             iduser: 'idbernard',
             nameUser: 'Bernard',
             content: 'Coucoous '
           }, {
+            id:"4",
             iduser: 'idpatrick',
             nameUser: 'Patrick',
             content: 'hellows '
           }, {
+            id:"4",
             iduser: 'idtoto',
             nameUser: 'Toto',
-            content: 'User1 : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a nulla a massa interdum imperdiet sed nec nibh. Proin porttitor euismod nulla ut interdum. Cras elementum placerat aliquam.'
+            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a nulla a massa interdum imperdiet sed nec nibh. Proin porttitor euismod nulla ut interdum. Cras elementum placerat aliquam.'
           },
         ],
         message_content: null
@@ -79,6 +83,11 @@ export default {
   },
   components: {
     'custom_header': Header
+  },
+  methods:{
+    deleteMessage(id){
+      console.log(id)
+    }
   }
 }
 
@@ -161,6 +170,7 @@ button:hover {
   flex-direction: row;
   justify-content: end;
   flex-wrap: nowrap;
+  margin-left: 30%;
 }
 
 .messageYou p {
@@ -168,6 +178,10 @@ button:hover {
   padding: 1%;
   border-radius: 5px;
   flex-wrap: wrap;
+}
+
+.messageOther{
+  margin-right: 30%;
 }
 
 .messageOther p {
