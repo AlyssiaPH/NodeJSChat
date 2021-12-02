@@ -1,5 +1,6 @@
 <template>
   <div>
+    <custom_header></custom_header>
     <div class="position-absolute start-50 translate-middle" style="width: 20%;height: 20%;top:25%;">
       <div class="card text-center">
         <div class="card-header">
@@ -51,6 +52,8 @@
 
 <script>
 
+import Header from "../components/Header";
+
 export default {
   name: "Home",
   data() {
@@ -92,6 +95,9 @@ export default {
       },
       deep: true
     }
+  },
+  components: {
+    'custom_header': Header
   }
 }
 </script>
