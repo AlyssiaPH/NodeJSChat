@@ -6,15 +6,15 @@
 
       <div id="chatList">
         <div v-for="room in data.room_list" :key="room" class="divRoomTab">
-          <p v-if="room=== data.current_room" class="currentRoomTab roomTab">{{room}}</p>
-          <p class="roomTab" v-else>{{room}}</p>
+          <p v-if="room=== data.current_room" class="currentRoomTab roomTab" @click="changeRoom(room)">{{room}}</p>
+          <p class="roomTab" v-else @click="changeRoom(room)">{{room}}</p>
         </div>
       </div>
 
       <div id="changeNameMenu">
         <label for="pseudoInput">Pseudo</label>
-        <input type="text" id="pseudoInput">
-        <input type="submit" value="Changer">
+        <input type="text" id="pseudoInput" v-model="data.newPseudo">
+        <input type="submit" value="Changer" @click="changeUserName">
       </div>
 
     </div>
@@ -31,10 +31,10 @@
       </li>
 
     </ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off"/>
-      <button>Envoyer</button>
-    </form>
+    <div id="form">
+      <input id="input" autocomplete="off"  v-model="data.newMessage"/>
+      <button @click="sendMessage">Envoyer</button>
+    </div>
   </div>
 </template>
 
@@ -51,6 +51,8 @@ export default {
           name:"Toto",
           admin:true
         },
+        newPseudo:"",
+        newMessage:"",
         current_room: "General",
         room_list: ["General", "Test", "Games"],
         messages_list: [
@@ -86,7 +88,20 @@ export default {
   },
   methods:{
     deleteMessage(id){
-      console.log(id)
+      console.log("Suprression message : " + id)
+    },
+    changeRoom(id){
+      console.log("Changement de room : " + id)
+    },
+    changeUserName(){
+      let userMAil = this.data.user.email
+      let newPseudo = this.data.newPseudo
+      console.log("Changement pseudo de : " +userMAil + " vers : " + newPseudo)
+    },
+    sendMessage(){
+      let userMAil = this.data.user.email
+      let newMessage = this.data.newMessage
+      console.log("Message de : " +userMAil + " : " + newMessage)
     }
   }
 }
@@ -115,7 +130,6 @@ body {
 
 .roomTab{
   /*background-color: aliceblue;*/
-
 }
 
 .currentRoomTab{
