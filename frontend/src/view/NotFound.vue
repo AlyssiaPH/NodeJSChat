@@ -13,7 +13,7 @@
 
 <script>
 import TextLight from "@/components/TextLight";
-require('../css/global.css')
+require('../../public/css/global.css')
 export default {
   props : {
     dataContent :{
