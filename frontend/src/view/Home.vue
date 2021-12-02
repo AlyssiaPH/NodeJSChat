@@ -1,9 +1,10 @@
 <template>
   <div>
+    <custom_header></custom_header>
     <div class="position-absolute start-50 translate-middle" style="width: 20%;height: 20%;top:25%;">
       <div class="card text-center">
         <div class="card-header">
-          <h5>Welcom to the chat Coding</h5>
+          <h5>Welcome to the chat Coding</h5>
         </div>
         <div class="card-body">
           <form>
@@ -28,6 +29,8 @@
 </template>
 
 <script>
+
+import Header from "../components/Header";
 
 export default {
   name: "Home",
@@ -60,6 +63,9 @@ export default {
   },
   mounted() {
     this.sendUserData()
+  },
+  components: {
+    'custom_header': Header
   }
 }
 </script>
