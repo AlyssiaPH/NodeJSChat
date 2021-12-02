@@ -32,7 +32,7 @@
 
     </ul>
     <div id="form">
-      <input id="input" autocomplete="off"  v-model="data.newMessage"/>
+      <input id="input" autocomplete="off"  v-model="data.new_message"/>
       <button @click="sendMessage">Envoyer</button>
     </div>
   </div>
@@ -114,7 +114,7 @@ export default {
         idroom: this.data.current_room
       }
       console.log(messageData)
-      await this.$http.post('http://localhost:3000/messages', messageData).then((res) => {
+      await this.$http.post('http://localhost:3000/message', messageData).then((res) => {
         //this.data.new_message= ""
         console.log(res)
       }).catch(err => {
