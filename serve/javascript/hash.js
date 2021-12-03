@@ -1,24 +1,27 @@
-const CryptoJS = require("crypto-js");
+const bcrypt = require('bcrypt');
 require('dotenv').config()
 const encoding = 'qsdlgf5fd5gdfgdfg2f2f2f2f2f2s1dg5fs4dg'
+const saltRounds = 10;
+const salt = bcrypt.genSaltSync(saltRounds);
 
-
-function encrypt(data){
-    return CryptoJS.AES.encrypt(data, encoding).toString();
+async function encrypt(data){
+    return bcrypt.hashSync(data, saltRounds);
 }
 
 function decrypt(data){
-    let bytes  = CryptoJS.AES.decrypt(data, encoding);
-    return  bytes.toString(CryptoJS.enc.Utf8);
 }
 
 function checkUser(tab,email,pass){
     let user = {}
     for (let i = 0; i < tab.length; i++) {
-        const test = tab[i].password === encrypt(pass)
-
-        console.log(test)
-    }
+        bcrypt.compare(pass, tab[i].password, function(err, result) {
+            /*if(result === true && tab[i].email === email){
+                user = tab[i]
+                console.log("Trouuvéé")
+            }*/
+        });
+        }
+    console.log(user)
     return user
 }
 
