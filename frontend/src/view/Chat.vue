@@ -101,6 +101,7 @@ export default {
       await this.$http.post('http://localhost:3000/message', messageData).then((res) => {
         //this.data.new_message= ""
         console.log(res)
+        this.changeRoom(this.data.current_room)
       }).catch(err => {
         console.log(err)
       })
