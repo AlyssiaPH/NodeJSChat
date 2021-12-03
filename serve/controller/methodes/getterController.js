@@ -1,4 +1,4 @@
-const {servicesGetter} = require('../../services/service')
+const {servicesGetter, servicesCreation} = require('../../services/service')
 
 async function getUserController(request, response) {
     try {
@@ -88,6 +88,28 @@ async function getAllRoomController(request, response) {
         })
     }
 }
+async function login(request, response) {
+    try {
+        let userGetting = await servicesCreation('/login',request.body)
+        if (userGetting === undefined) {
+            response.json({
+                result: null,
+                error: 'No user find'
+            })
+        } else {
+            response.json({
+                result: userGetting,
+                error: -1
+            })
+            return response
+        }
+    } catch (exception) {
+        response.json({
+            result: null,
+            error: 'No user find'
+        })
+    }
+}
 
 async function getAllRoomMessagesController(request, response) {
     try {
@@ -117,5 +139,6 @@ module.exports = {
     getRoomController,
     getAllRoomController,
     getAllRoomMessagesController,
-    getUserController
+    getUserController,
+    login
 }

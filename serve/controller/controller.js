@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors')
-const {getUserController, getMessageController, getRoomController, getAllRoomController, getAllRoomMessagesController} = require("./methodes/getterController");
+const {getUserController, getMessageController, getRoomController, getAllRoomController, getAllRoomMessagesController, login} = require("./methodes/getterController");
 const {createUserController, createMessageController,createRoomController} = require("./methodes/createController");
 const {deleteUserController}=require('./methodes/deleteController')
 const {request, response} = require("express");
@@ -27,6 +27,11 @@ app.post(
     async (req, res) => {
         await createRoomController(req, res)
     })
+app.post(
+    '/login',
+    async (req, res) => {
+        await login(req, res)
+    })
 
 /**
  * ALL GET
@@ -50,6 +55,11 @@ app.get(
     '/allrooms',
     async (req, res) => {
         await getAllRoomController(req, res)
+    })
+app.get(
+    '/allusers',
+    async (req, res) => {
+        await getAllUsersController(req, res)
     })
 app.get(
     '/allroommessages',

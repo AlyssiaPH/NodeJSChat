@@ -78,8 +78,14 @@ export default {
         console.log(err)
       })
     },
-    deleteMessage(id){
+    async deleteMessage(id){
       console.log("Suprression message : " + id)
+      await this.$http.delete('http://localhost:3000/message', id).then((res) => {
+        console.log(res)
+        this.changeRoom(this.data.current_room)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     changeRoom(id){
       this.data.current_room = id
@@ -99,7 +105,7 @@ export default {
       }
       console.log(messageData)
       await this.$http.post('http://localhost:3000/message', messageData).then((res) => {
-        //this.data.new_message= ""
+        this.data.new_message= ""
         console.log(res)
         this.changeRoom(this.data.current_room)
       }).catch(err => {

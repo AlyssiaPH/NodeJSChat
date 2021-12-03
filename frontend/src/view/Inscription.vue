@@ -78,7 +78,7 @@ export default {
       })
     },
     async sendUserData() {
-      await this.$http.post('http://localhost:3000/inscription', this.data).then((res) => {
+      await this.$http.post('http://localhost:3000/user', this.data).then((res) => {
         console.log(res)
       }).catch(err => {
         console.log(err)
