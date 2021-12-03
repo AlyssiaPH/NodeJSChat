@@ -13,7 +13,7 @@ async function deleteUserController(request,response){
 
 async function deleteMessageController(request,response){
     try {
-        let valide = await servicesDelete('/message',request.body.id,request,response)
+        let valide = await servicesDelete('/message',request.query.id,request,response)
     } catch (exception) {
         response.json({
             result: null,
