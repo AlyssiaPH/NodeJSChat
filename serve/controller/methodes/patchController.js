@@ -7,9 +7,6 @@ async function patchUserController(request,response){
         let json = {
             name: request.body.name,
             email: request.body.email,
-            password: request.body.password,
-            admin: request.body.admin,
-            rooms : request.body.rooms
         }
         console.log(json)
         let valide = await servicesPatch('/user',json,request,response)
