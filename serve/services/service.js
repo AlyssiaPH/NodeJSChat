@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const {createUserService, createMessageService, createRoomService} = require('./methodes/createServices')
 const {getterMessageService,getterUserService,getterRoomService, getterAllRoomService, getterAllRoomMessagesService, checkLoginUser} = require('./methodes/getterServices')
-const {deleteUserService}=require('./methodes/deleteServices')
+const {deleteUserService,deleteMessageService}=require('./methodes/deleteServices')
 mongoose.connect('mongodb://groupe6:ekwHcv6ZmRVRNBrSX5w@94.130.108.19/groupe6');
 
 let modelUsers = mongoose.model('user', {name: String, email: String, password: String, admin: Boolean, rooms: Array})
@@ -45,6 +45,7 @@ async function servicesDelete(path,data,req,res){
         case '/user':
             return deleteUserService(data,modelUsers,req,res)
         case '/message':
+            return deleteMessageService(data,modelMessage,req,res)
         default:
             break
     }

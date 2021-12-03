@@ -11,6 +11,22 @@ async function deleteUserController(request,response){
     }
 }
 
-module.exports = {
-    deleteUserController
+async function deleteMessageController(request,response){
+    try {
+        let valide = await servicesDelete('/message',request.body.id,request,response)
+    } catch (exception) {
+        response.json({
+            result: null,
+            error: 'This message doesn\'t exist'
+        })
+    }
 }
+
+module.exports = {
+    deleteUserController,
+    deleteMessageController
+
+}
+
+
+

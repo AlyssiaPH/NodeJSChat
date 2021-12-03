@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const {getUserController, getMessageController, getRoomController, getAllRoomController, getAllRoomMessagesController, login} = require("./methodes/getterController");
 const {createUserController, createMessageController,createRoomController} = require("./methodes/createController");
-const {deleteUserController}=require('./methodes/deleteController')
+const {deleteUserController, deleteMessageController}=require('./methodes/deleteController')
 const {request, response} = require("express");
 const app = express();
 app.use(cors());
@@ -72,6 +72,10 @@ app.get(
 
 app.delete('/user',async (req,res)=>{
     await deleteUserController(req,res)
+})
+
+app.delete('/message',async (req, res) => {
+    await deleteMessageController(req, res)
 })
 
 app.listen(3000, () => {console.log("Started on PORT 3000");})

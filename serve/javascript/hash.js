@@ -15,13 +15,10 @@ function decrypt(data){
 function checkUser(tab,email,pass){
     let user = {}
     for (let i = 0; i < tab.length; i++) {
-        console.log(tab[i].password, encrypt(pass).toString(CryptoJS.enc.Utf8))
-        if(tab[i].email === email && tab[i].password === encrypt(encrypt(pass))){
-            user = tab[i]
-            console.log("Trouuvéé")
-        }
+        const test = tab[i].password === encrypt(pass)
+
+        console.log(test)
     }
-    console.log(user)
     return user
 }
 
