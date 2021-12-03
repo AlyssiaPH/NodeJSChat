@@ -1,10 +1,13 @@
+const {mode} = require("vue-socket.io/webpack.config");
 
-async function deleteUserService(json, modelUsers,req,res) {
+async function deleteUserService(id, modelUsers,req,res) {
     try{
-        const id = json.id;
-        const projectIndex = modelUsers.findIndex(p => p.id === id);
-        modelUsers.splice(projectIndex, 1);
-        return res.send();
+        let test = await modelUsers.deleteOne({ _id: id });
+        // console.log(modelUsers.findOne({_id:id}).)
+        // modelUsers.findOneAndDelete({_id:id});
+        // modelUsers.splice(projectIndex, 1);
+        console.log(test)
+        res.json(test)
     }catch (exception){
         console.log('error : '+exception)
         res.json(exception)

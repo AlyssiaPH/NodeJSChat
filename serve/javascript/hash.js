@@ -14,7 +14,6 @@ function decrypt(data){
 
 function checkUser(tab,email,pass){
     let user = {}
-
     for (let i = 0; i < tab.length; i++) {
         if(tab[i].email === email && tab[i].pass === encrypt(pass)){
             user = tab[i]
