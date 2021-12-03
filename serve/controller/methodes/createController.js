@@ -7,7 +7,7 @@ async function createUserController(request,response){
         let json = {
             name: request.body.name,
             email: request.body.email,
-            password: encrypt(request.body.password),
+            password: request.body.password,
             admin: request.body.admin,
             rooms : request.body.rooms
         }

@@ -4,7 +4,7 @@ async function createUserService(json, modelUsers,req,res) {
     try{
         const data = new modelUsers({
             name: json.name,
-            email: encrypt(json.email),
+            email: json.email,
             password: encrypt(json.password),
             admin: json.admin,
             rooms : json.rooms
