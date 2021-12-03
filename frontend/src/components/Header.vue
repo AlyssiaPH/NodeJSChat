@@ -27,7 +27,7 @@ export default {
       this.$router.push('/')
     },
     disconnect(){
-      this.$session.disconnect()
+      this.$session.destroy()
       this.$router.push('/')
     }
   }

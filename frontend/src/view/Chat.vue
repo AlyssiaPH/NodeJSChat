@@ -14,7 +14,7 @@
       <div id="changeNameMenu">
         <label for="pseudoInput">Pseudo</label>
         <input type="text" id="pseudoInput" v-model="data.newPseudo">
-        <input type="submit" value="Changer" @click="changeUserName">
+        <input type="submit" value="Changer" @click="changeUserName()">
       </div>
 
     </div>
@@ -23,11 +23,11 @@
 
       <li v-if="data.user.email === item.iduser " class="messageYou">
         <p>{{ item.content }}</p>
-        <p v-if="data.user.admin === true" @click="deleteMessage(item._id)">x</p>
+        <p v-if="this.$session.get('user').admin" @click="deleteMessage(item._id)">x</p>
       </li>
       <li v-else class="messageOther">
         <p>{{ item.content }}</p>
-        <p v-if="data.user.admin === true" @click="deleteMessage(item._id)">x</p>
+        <p v-if="this.$session.get('user').admin" @click="deleteMessage(item._id)">x</p>
       </li>
 
     </ul>
@@ -40,6 +40,9 @@
 
 <script>
 import Header from "../components/Header";
+import VueSession from 'vue-session'
+import Vue from "vue";
+Vue.use(VueSession)
 
 export default {
   name: "chat",
@@ -99,10 +102,13 @@ export default {
       this.data.current_room = id
       this.getAllRoomMessages(id)
     },
-    changeUserName(){
-      let userMAil = this.data.user.email
-      let newPseudo = this.data.newPseudo
-      console.log("Changement pseudo de : " +userMAil + " vers : " + newPseudo)
+    async changeUserName(){
+      await this.$http.patch('http://localhost:3000/user',
+          { params: {id:this.$session.get('user').id,name:this.data.newPseudo }}).then((res) => {
+        this.info = res.data
+      }).catch(err => {
+        console.log(err)
+      })
     },
     async sendMessage(){
       console.log(this.data.new_message)
