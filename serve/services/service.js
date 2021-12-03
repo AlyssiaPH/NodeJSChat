@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const {createUserService, createMessageService, createRoomService} = require('./methodes/createServices')
-const {getterMessageService,getterUserService,getterRoomService, getterAllRoomService, getterAllRoomMessagesService} = require('./methodes/getterServices')
+const {getterMessageService,getterUserService,getterRoomService, getterAllRoomService, getterAllRoomMessagesService, checkLoginUser} = require('./methodes/getterServices')
 const {deleteUserService}=require('./methodes/deleteServices')
 mongoose.connect('mongodb://groupe6:ekwHcv6ZmRVRNBrSX5w@94.130.108.19/groupe6');
 
@@ -16,6 +16,8 @@ async function servicesCreation(path,data,req,res){
             return createMessageService(data,modelMessage,req,res)
         case '/room':
             return createRoomService(data,modelRoom,req,res)
+        case '/login':
+            return checkLoginUser(data,modelUsers,req,res)
         default:
             break
     }

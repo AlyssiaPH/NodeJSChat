@@ -1,4 +1,4 @@
-const {decrypt,encrypt}=require('./../../javascript/hash')
+const {decrypt,encrypt, checkUser}=require('./../../javascript/hash')
 
 async function getterUserService(user,modelUsers) {
     let data = await modelUsers.findById(user.query.id)
@@ -17,6 +17,15 @@ async function getterRoomService(name,modelRoom) {
         return -1
     } else {
         return 1
+    }
+}
+
+async function checkLoginUser(json, modelUser) {
+    let data = await modelUser.find({})
+    if (data.length < 1) {
+        return -1
+    } else {
+        return checkUser(data, json.email, json.password)
     }
 }
 
@@ -57,5 +66,6 @@ module.exports = {
     getterAllRoomService,
     getterAllRoomMessagesService,
     getterMessageService,
-    getterUserService
+    getterUserService,
+    checkLoginUser
 }
