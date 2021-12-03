@@ -12,7 +12,7 @@
         <h1>NodeJS Chat</h1>
       </div>
       <div id="accountDiv">
-        <button id="loginButton" @click="goLogin">Se connecter</button> <button id="logoutButton" >Déconnexion</button>
+        <button id="loginButton" @click="goLogin">Se connecter</button> <button id="logoutButton" @click="disconnect">Déconnexion</button>
       </div>
 
     </header>
@@ -26,6 +26,10 @@ export default {
     goLogin(){
       this.$router.push('/')
     },
+    disconnect(){
+      this.$session.disconnect()
+      this.$router.push('/')
+    }
   }
 }
 </script>
