@@ -97,6 +97,7 @@ async function login(request, response) {
                 error: 'No user find'
             })
         } else {
+            console.log(userGetting)
             response.json({
                 result: userGetting,
                 error: -1
