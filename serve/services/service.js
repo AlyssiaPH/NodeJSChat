@@ -48,9 +48,20 @@ async function servicesDelete(path,data,req,res){
     }
 }
 
+async function servicesPatch(path,data,req,res){
+    switch (path){
+        case '/user':
+            return deleteUserService(data,modelUsers,req,res)
+        case '/message':
+        default:
+            break
+    }
+}
+
 
 module.exports = {
     servicesGetter,
     servicesCreation,
     servicesDelete,
+    servicesPatch
 }
