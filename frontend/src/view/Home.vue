@@ -49,7 +49,7 @@ export default {
     },
     async sendUserData() {
       await this.$http.post('http://localhost:3000/login', this.data).then((res) => {
-        console.log("REPONSE",res)
+        console.log("REPONSE",res.data)
         //this.$session.start()
         //this.$session.set('user', response.body.token)
 

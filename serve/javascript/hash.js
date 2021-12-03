@@ -4,7 +4,7 @@ const encoding = 'qsdlgf5fd5gdfgdfg2f2f2f2f2f2s1dg5fs4dg'
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
-async function encrypt(data){
+function encrypt(data){
     return bcrypt.hashSync(data, saltRounds);
 }
 
@@ -15,13 +15,12 @@ function checkUser(tab,email,pass){
     let user = {}
     for (let i = 0; i < tab.length; i++) {
         bcrypt.compare(pass, tab[i].password, function(err, result) {
-            /*if(result === true && tab[i].email === email){
-                user = tab[i]
-                console.log("Trouuvéé")
-            }*/
+            if(result === true && tab[i].email === email){
+                //console.log(tab[i])
+                return tab[i]
+            }
         });
         }
-    console.log(user)
     return user
 }
 

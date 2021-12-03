@@ -9,6 +9,7 @@ async function createUserService(json, modelUsers,req,res) {
             admin: json.admin,
             rooms : json.rooms
         })
+        console.log(data)
         await data.save()
         let returnValue = 'user : ' + JSON.stringify(json) + ' created !'
         console.log(returnValue)
