@@ -21,11 +21,14 @@ async function getterRoomService(name,modelRoom) {
 }
 
 async function checkLoginUser(json, modelUser) {
-    let data = await modelUser.find({})
-    if (data.length < 1) {
-        return -1
-    } else {
-        return checkUser(data, json.email, json.password)
+    let data = await modelUser.findOne({
+        email : json.email
+    })
+    let verify = checkUser(json.password,data.password)
+    if(verify){
+        return data
+    }else{
+        return {}
     }
 }
 

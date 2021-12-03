@@ -76,7 +76,11 @@ app.delete('/user',async (req,res)=>{
 })
 
 app.delete('/message',async (req, res) => {
-    await deleteMessageController(req, res)
+    if(req.body.admin){
+        await deleteMessageController(req, res)
+    }else {
+        res.send('You have not acces to request')
+    }
 })
 
 /**

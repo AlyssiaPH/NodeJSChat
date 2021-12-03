@@ -11,7 +11,6 @@ async function createUserController(request,response){
             admin: request.body.admin,
             rooms : request.body.rooms
         }
-        console.log(json)
         let valide = await servicesCreation('/user',json,request,response)
         response.json(valide);
         console.log('User Created !')

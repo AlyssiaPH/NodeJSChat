@@ -2,10 +2,11 @@ const {encrypt} = require("./../../javascript/hash");
 
 async function createUserService(json, modelUsers,req,res) {
     try{
+        let crypt = await encrypt(json.password)
         const data = new modelUsers({
             name: json.name,
             email: json.email,
-            password: encrypt(json.password),
+            password: crypt,
             admin: json.admin,
             rooms : json.rooms
         })

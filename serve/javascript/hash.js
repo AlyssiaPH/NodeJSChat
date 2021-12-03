@@ -12,14 +12,15 @@ function decrypt(data){
     return  bytes.toString(CryptoJS.enc.Utf8);
 }
 
-function checkUser(tab,email,pass){
-    let user = {}
-    for (let i = 0; i < tab.length; i++) {
-        const test = tab[i].password === encrypt(pass)
+function checkUser(data,userpass){
 
-        console.log(test)
+    let crypte = decrypt(userpass)
+
+    if(data === crypte){
+        return true
+    }else{
+        return false
     }
-    return user
 }
 
 module.exports = {
