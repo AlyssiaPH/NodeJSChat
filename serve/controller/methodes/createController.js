@@ -6,7 +6,7 @@ async function createUserController(request,response){
         console.log('Creation User wait')
         let json = {
             name: request.body.name,
-            email: encrypt(request.body.email),
+            email: request.body.email,
             password: encrypt(request.body.password),
             admin: request.body.admin,
             rooms : request.body.rooms

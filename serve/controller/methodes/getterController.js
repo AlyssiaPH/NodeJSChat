@@ -3,14 +3,15 @@ const {servicesGetter} = require('../../services/service')
 async function getUserController(request, response) {
     try {
         let userGetting = await servicesGetter('/user',request)
-        if (userGetting.length < 1) {
+        console.log(userGetting)
+        if (userGetting === undefined) {
             response.json({
                 result: null,
                 error: 'This user doesn\'t exist'
             })
         } else {
             response.json({
-                result: userGetting[0],
+                result: userGetting,
                 error: -1
             })
         }
@@ -97,7 +98,6 @@ async function getAllRoomMessagesController(request, response) {
                 error: 'No room find'
             })
         } else {
-            console.log(messagesGetting)
             response.json({
                 result: messagesGetting,
                 error: -1

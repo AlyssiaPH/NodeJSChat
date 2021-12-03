@@ -1,16 +1,14 @@
 const {decrypt,encrypt}=require('./../../javascript/hash')
 
 async function getterUserService(user,modelUsers) {
-    let data = await modelUsers.find({
-        email: encrypt(user.query.email),
-    })
-    console.log('wait search : '+data.query.email)
-    if (data.length !== 1) {
+    let data = await modelUsers.findById(user.query.id)
+    if (data === undefined) {
         return -1
     } else {
-        return 1
+        return data
     }
 }
+
 async function getterRoomService(name,modelRoom) {
     let data = await modelRoom.find({
         name: name,

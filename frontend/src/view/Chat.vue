@@ -26,7 +26,7 @@
         <p v-if="data.user.admin === true" @click="deleteMessage(item.id)">x</p>
       </li>
       <li v-else class="messageOther">
-        <p>{{ item.nameUser }} : {{ item.content }}</p>
+        <p>{{ item.content }}</p>
         <p v-if="data.user.admin === true" @click="deleteMessage(item.id)">x</p>
       </li>
 
@@ -71,16 +71,14 @@ export default {
       await this.$http.get('http://localhost:3000/allroommessages',
           { params: {
             idRoom: idRoom
-            }}).then((res) => {
+            }}).then(async (res) => {
         this.data.messages_list = res.data.result
-        console.log("resultat", res.data.result)
         return res.data.result
       }).catch(err => {
         console.log(err)
       })
     },
     deleteMessage(id){
-
       console.log("Suprression message : " + id)
     },
     changeRoom(id){
@@ -111,6 +109,17 @@ export default {
       await this.$http.get('http://localhost:3000/allrooms',
           { }).then((res) => {
         this.data.room_list = res.data.result
+        return res.data.result
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async getuser(id) {
+      await this.$http.get('http://localhost:3000/user',
+          { params: {
+              id: id
+            }}).then((res) => {
+        console.log(res.data.result)
         return res.data.result
       }).catch(err => {
         console.log(err)
