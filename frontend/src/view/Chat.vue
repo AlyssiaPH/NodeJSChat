@@ -23,11 +23,11 @@
 
       <li v-if="data.user.email === item.iduser " class="messageYou">
         <p>{{ item.content }}</p>
-        <p v-if="data.user.admin === true" @click="deleteMessage(item.id)">x</p>
+        <p v-if="data.user.admin === true" @click="deleteMessage(item._id)">x</p>
       </li>
       <li v-else class="messageOther">
         <p>{{ item.content }}</p>
-        <p v-if="data.user.admin === true" @click="deleteMessage(item.id)">x</p>
+        <p v-if="data.user.admin === true" @click="deleteMessage(item._id)">x</p>
       </li>
 
     </ul>
@@ -79,8 +79,10 @@ export default {
       })
     },
     async deleteMessage(id){
-      console.log("Suprression message : " + id)
-      await this.$http.delete('http://localhost:3000/message', id).then((res) => {
+      await this.$http.delete('http://localhost:3000/message',
+          { params: {
+          id: id
+      }}).then((res) => {
         console.log(res)
         this.changeRoom(this.data.current_room)
       }).catch(err => {
