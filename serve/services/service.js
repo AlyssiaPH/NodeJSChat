@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const {createUserService, createMessageService, createRoomService} = require('./methodes/createServices')
 const {getterMessageService,getterUserService,getterRoomService, getterAllRoomService, getterAllRoomMessagesService} = require('./methodes/getterServices')
-const{getUser}= require('./methodes/getterServices')
+const {deleteUserService}=require('./methodes/deleteServices')
 mongoose.connect('mongodb://groupe6:ekwHcv6ZmRVRNBrSX5w@94.130.108.19/groupe6');
 
 let modelUsers = mongoose.model('user', {name: String, email: String, password: String, admin: Boolean, rooms: Array})
@@ -38,23 +38,19 @@ async function servicesGetter(path,data,req,res){
     }
 }
 
-async function servicesDelete(path,data){
+async function servicesDelete(path,data,req,res){
     switch (path){
         case '/user':
-            return deleteUserService(data,modelUsers)
+            return deleteUserService(data,modelUsers,req,res)
         case '/message':
-            return deleteMessageService(data,modelUsers)
-        case '/room':
-            return deleteRoomService(data,modelRoom)
         default:
             break
     }
 }
 
 
-
-
 module.exports = {
     servicesGetter,
-    servicesCreation
+    servicesCreation,
+    servicesDelete,
 }
