@@ -25,12 +25,13 @@ export default new VueRouter({
         {
             path:'/chat',
             name:'chat',
-            component: Chat
+            component: Chat,
         },
         {
             path: '*',
             name : 'Not Found',
             component: NotFound,
         }
-    ]
+    ],
+
 })

@@ -31,6 +31,9 @@
 <script>
 
 import Header from "../components/Header";
+import VueSession from 'vue-session'
+import Vue from "vue";
+Vue.use(VueSession)
 
 export default {
   name: "Home",
@@ -50,9 +53,11 @@ export default {
     async sendUserData() {
       await this.$http.post('http://localhost:3000/login', this.data).then((res) => {
         console.log(res.data.result)
-        //this.$session.start()
-        //this.$session.set('user', response.body.token)
-
+        if (res.data.result !== null) {
+          this.$session.start()
+          this.$session.set('user', res.data.result)
+          this.$router.push('/chat')
+        }
       })
           .catch(err => {
             console.log(err)

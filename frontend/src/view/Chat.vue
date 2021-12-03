@@ -62,10 +62,16 @@ export default {
       info: null
     }
   },
+  beforeCreate: function () {
+    if (!this.$session.exists()) {
+      this.$router.push('/')
+    }
+  },
   components: {
     'custom_header': Header
   },
   methods:{
+
     async getAllRoomMessages(idRoom){
       this.data.messages_list = ""
       await this.$http.get('http://localhost:3000/allroommessages',
